@@ -1,0 +1,78 @@
+{
+  "fontSize": "text-base",
+  "fontFamily": "font-sans",
+  "backgroundImage": "/uploads/bg-1742500267040.webp",
+  "fields": {
+    "name": {
+      "required": true,
+      "label": "Nombre",
+      "type": "text",
+      "show": true
+    },
+    "surname": {
+      "required": true,
+      "label": "Apellido",
+      "type": "text",
+      "show": true
+    },
+    "email": {
+      "required": true,
+      "label": "Email",
+      "type": "email",
+      "show": true
+    },
+    "street": {
+      "required": true,
+      "label": "Calle",
+      "type": "text",
+      "show": true
+    },
+    "number": {
+      "required": true,
+      "label": "Número",
+      "type": "text",
+      "show": true
+    },
+    "additionalInfo": {
+      "required": false,
+      "label": "Información adicional",
+      "type": "text",
+      "show": true
+    },
+    "city": {
+      "required": true,
+      "label": "Ciudad",
+      "type": "text",
+      "show": true
+    },
+    "province": {
+      "required": true,
+      "label": "Provincia",
+      "type": "text",
+      "show": true
+    },
+    "ivaCondition": {
+      "required": true,
+      "label": "Condición de IVA",
+      "type": "select",
+      "options": [
+        "Consumidor final",
+        "IVA responsable inscripto",
+        "Responsable monotributo"
+      ],
+      "show": true
+    },
+    "cuit": {
+      "required": false,
+      "label": "CUIT",
+      "type": "text",
+      "show": false
+    },
+    "dni": {
+      "required": false,
+      "label": "DNI",
+      "type": "text",
+      "show": false
+    }
+  }
+}
