@@ -2,11 +2,7 @@ import React from 'react';
 import EditFormConfig from '../components/checkout/EditFormConfig';
 
 const EditConfigPage = () => {
-  return (
-    <div>
-      <EditFormConfig />
-    </div>
-  );
+  return <EditFormConfig />;
 };
 
 export default EditConfigPage;

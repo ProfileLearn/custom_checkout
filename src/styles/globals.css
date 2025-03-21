@@ -1,4 +1,30 @@
-/* filepath: /home/hernan/Documentos/Desarrollo/custom_boxful_checkout/src/styles/globals.css */
+/* styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ✅ Selectores válidos */
+.container:not(button) {
+  text-size-adjust: 100%;
+  font-family: inherit;
+}
+
+/* ✅ Clases normales */
+.global-style {
+  padding: 1rem;
+}
+
+/* ✅ Versión corregida */
+body {
+  text-size-adjust: 100%;
+}
+
+/* ✅ Usar clase normal */
+.my-component:not(button) {
+  color: red;
+}
+
+/* ✅ Formato correcto */
+.mi-clase {
+  padding: 0;
+}

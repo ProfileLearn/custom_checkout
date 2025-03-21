@@ -1,7 +1,7 @@
 {
   "fontSize": "text-base",
   "fontFamily": "font-sans",
-  "backgroundImage": "",
+  "backgroundImage": "/uploads/bg-1742500267040.webp",
   "fields": {
     "name": {
       "required": true,

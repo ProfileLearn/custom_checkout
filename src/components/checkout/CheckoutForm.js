@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CheckoutForm = ({ configUrl = '/formConfig.json', onSubmit }) => {
+const CheckoutForm = ({ configUrl = 'api/getConfig', onSubmit }) => {
   const [config, setConfig] = useState(null);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState('');
@@ -14,11 +14,15 @@ const CheckoutForm = ({ configUrl = '/formConfig.json', onSubmit }) => {
         return response.json();
       })
       .then(data => {
-        setConfig(data);
-        const initialData = data.fields ? Object.keys(data.fields).reduce((acc, field) => {
-          acc[field] = '';
-          return acc;
-        }, {}) : {};
+        // Extraemos la config desde la propiedad 'config'
+        const configData = data.config;
+        setConfig(configData);
+        const initialData = configData.fields
+          ? Object.keys(configData.fields).reduce((acc, field) => {
+            acc[field] = '';
+            return acc;
+          }, {})
+          : {};
         setFormData(initialData);
       })
       .catch(error => {
@@ -39,7 +43,7 @@ const CheckoutForm = ({ configUrl = '/formConfig.json', onSubmit }) => {
     e.preventDefault();
 
     const missingFields = Object.entries(config.fields)
-      .filter(([field, config]) => config.required && !formData[field])
+      .filter(([field, fieldConfig]) => fieldConfig.required && !formData[field])
       .map(([field]) => config.fields[field].label);
 
     if ((formData.ivaCondition === 'IVA responsable inscripto' || formData.ivaCondition === 'Responsable monotributo') && !formData.cuit) {

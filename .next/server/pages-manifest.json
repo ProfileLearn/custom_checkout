@@ -4,6 +4,6 @@
   "/_document": "pages/_document.js",
   "/checkout": "pages/checkout.js",
   "/edit-config": "pages/edit-config.js",
-  "/api/saveConfig": "pages/api/saveConfig.js",
-  "/api/upload": "pages/api/upload.js"
+  "/api/getConfig": "pages/api/getConfig.js",
+  "/api/saveConfig": "pages/api/saveConfig.js"
 }

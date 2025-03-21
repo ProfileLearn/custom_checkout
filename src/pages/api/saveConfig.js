@@ -1,46 +1,37 @@
-// src/pages/api/saveConfig.js
-import fs from 'fs';
-import path from 'path';
+// pages/api/saveConfig.js
+import { PrismaClient } from '@prisma/client';
 
-export default function handler(req, res) {
+const prisma = new PrismaClient();
+
+export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      // 1. Validar datos básicos
-      if (!req.body || typeof req.body !== 'object') {
-        return res.status(400).json({ error: 'Datos de configuración inválidos' });
+      // Validar estructura básica
+      if (!req.body.fontSize || !req.body.fontFamily) {
+        return res.status(400).json({ error: 'Configuración incompleta' });
       }
 
-      // 2. Definir rutas
-      const configPath = path.join(process.cwd(), 'public', 'formConfig.json');
-      const backupPath = path.join(process.cwd(), 'public', 'formConfig.backup.json');
+      const newConfig = await prisma.configuration.upsert({
+        where: { id: req.body.id || 0 }, // Asume que el ID se pasa en el cuerpo de la solicitud
+        update: {
+          data: req.body
+        },
+        create: {
+          data: req.body
+        }
+      });
 
-      // 3. Crear backup
-      if (fs.existsSync(configPath)) {
-        fs.copyFileSync(configPath, backupPath);
-      }
-
-      // 4. Escribir nueva configuración
-      fs.writeFileSync(
-        configPath,
-        JSON.stringify(req.body, null, 2),
-        'utf8'
-      );
-
-      // 5. Responder con éxito
       res.status(200).json({
-        message: 'Configuración guardada exitosamente',
-        backup: backupPath
+        success: true,
+        config: newConfig.data
       });
-
+      
     } catch (error) {
-      console.error('Error guardando configuración:', error);
-      res.status(500).json({
-        error: 'Error interno del servidor',
-        details: error.message
-      });
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Error guardando configuración' });
     }
   } else {
     res.setHeader('Allow', ['POST']);
-    res.status(405).json({ error: `Método ${req.method} no permitido` });
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
